@@ -27,8 +27,13 @@ class _CatalogScreenState extends State<CatalogScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
-        title: const Text('SAMA Resto',
-            style: TextStyle(color: Color(0xFFC0202D), fontWeight: FontWeight.bold)),
+        title: const Text(
+          'SAMA Resto',
+          style: TextStyle(
+            color: Color(0xFFC0202D),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.lock_outline, color: Colors.black87),
@@ -40,8 +45,17 @@ class _CatalogScreenState extends State<CatalogScreen> {
             alignment: Alignment.center,
             children: [
               IconButton(
-                icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black87),
-                onPressed: () => Navigator.pushNamed(context, '/cart'),
+                icon: const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  if (!auth.isLoggedIn) {
+                    Navigator.pushNamed(context, '/login');
+                  } else {
+                    Navigator.pushNamed(context, '/cart');
+                  }
+                },
               ),
               if (cart.itemCount > 0)
                 Positioned(
@@ -50,8 +64,10 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   child: CircleAvatar(
                     radius: 8,
                     backgroundColor: const Color(0xFFC0202D),
-                    child: Text('${cart.itemCount}',
-                        style: const TextStyle(color: Colors.white, fontSize: 10)),
+                    child: Text(
+                      '${cart.itemCount}',
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                   ),
                 ),
             ],
@@ -116,7 +132,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('Aucun produit pour le moment'));
+                  return const Center(
+                    child: Text('Aucun produit pour le moment'),
+                  );
                 }
                 final produits = snapshot.data!
                     .where((p) => p.nom.toLowerCase().contains(_searchText))
@@ -126,22 +144,32 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Menu Populaire',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Menu Populaire',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(height: 12),
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: produits.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 12,
-                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              mainAxisSpacing: 12,
+                            ),
                         itemBuilder: (context, i) {
                           final p = produits[i];
                           return ProductCard(
                             product: p,
-                            onTap: () => Navigator.pushNamed(context, '/product-detail', arguments: p.id),
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/product-detail',
+                              arguments: p.id,
+                            ),
                           );
                         },
                       ),
@@ -164,9 +192,18 @@ class _CatalogScreenState extends State<CatalogScreen> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Commande'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Rechercher'),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Catégorie'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Commande',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Rechercher',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grid_view),
+            label: 'Catégorie',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),

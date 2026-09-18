@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'firebase_options.dart';
 import 'providers/auth_provider.dart';
 import 'providers/cart_provider.dart';
@@ -8,10 +9,15 @@ import 'providers/product_provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
+import 'screens/catalog_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const SamaRestoApp());
 }
 
@@ -22,11 +28,17 @@ class SamaRestoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
-        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(),
+        ),
       ],
-              child: MaterialApp(
+      child: MaterialApp(
         title: 'SamaResto',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -41,11 +53,7 @@ class SamaRestoApp extends StatelessWidget {
           '/': (context) => const HomeScreen(),
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
-          '/catalog': (context) => const Scaffold(
-                body: Center(
-                  child: Text('Catalogue — à venir (étape 8)'),
-                ),
-              ),
+          '/catalog': (context) => const CatalogScreen(),
         },
       ),
     );

@@ -66,6 +66,9 @@ class AuthProvider extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       _errorMessage = e.message ?? "Erreur d'inscription";
       return false;
+    } catch (e) {
+      _errorMessage = "Erreur inattendue : $e"; // <-- capture TOUT le reste
+      return false;
     } finally {
       _isLoading = false;
       notifyListeners();
