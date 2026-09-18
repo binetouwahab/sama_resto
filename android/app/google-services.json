@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "200282331623",
+    "project_id": "sama-resto-e676e",
+    "storage_bucket": "sama-resto-e676e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200282331623:android:dab3a4218048acd7bf0542",
+        "android_client_info": {
+          "package_name": "com.example.sama_resto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvyTNXzcXvuur6bGLJfl4LVSbDo-SPwPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
