@@ -5,6 +5,9 @@ import 'firebase_options.dart';
 import 'providers/auth_provider.dart';
 import 'providers/cart_provider.dart';
 import 'providers/product_provider.dart';
+import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,17 +26,27 @@ class SamaRestoApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
       ],
-      child: MaterialApp(
+              child: MaterialApp(
         title: 'SamaResto',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color(0xFFC0202D),
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFC0202D)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFFC0202D),
+          ),
           useMaterial3: true,
         ),
-        home: const Scaffold(
-          body: Center(child: Text('SamaResto — Providers connectés ✅')),
-        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const HomeScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/catalog': (context) => const Scaffold(
+                body: Center(
+                  child: Text('Catalogue — à venir (étape 8)'),
+                ),
+              ),
+        },
       ),
     );
   }
